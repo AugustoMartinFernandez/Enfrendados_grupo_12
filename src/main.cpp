@@ -13,7 +13,7 @@ int main()
     bool salir = false; // Variable bandera para controlar el ciclo del menu cambia a true cuando el usuario decide salir
     // Pantalla de bienvenida inicial con estilo
     cout << "+=====================================+" << endl;
-    cout << "|         BIENVENIDO A ENFRENDADOS    |" << endl;
+    cout << "|         BIENVENIDOS A ENFRENDADOS    |" << endl;
     cout << "|           EL JUEGO DE DADOS         |" << endl;
     cout << "+=====================================+" << endl;
     cout << "|  Por favor, ingresa tu nombre para  |" << endl;
