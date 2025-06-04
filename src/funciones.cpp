@@ -11,6 +11,8 @@ El metodo .empty() verifica si una cadena de texto esta vacia.
 - Retorna true si la cadena no contiene ningun caracter (longitud 0),
 - y false si tiene uno o mas caracteres.
 */
+
+
 string pedirNombre(string mensaje)
 {
   string nombre;
