@@ -183,3 +183,56 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                     dadosOponente, cantidadStockOponente, puntosJugador,
                     puntosOponente);
 }
+
+
+void nombreJugadores(string jugadores[2]){
+    cout << "Ingrese nombre de jugador 1: ";
+    cin >> jugadores[0];
+    cout << "Ingrese nombre de jugador 2: ";
+    cin >> jugadores[1];
+    system("cls");
+}
+
+
+
+
+
+void ordenDePartida(string jugadores[], string turnoJugador[]) {
+    int dadoJugador1, dadoJugador2;
+
+    do {
+        dadoJugador1 = rand() % 6 + 1;
+        dadoJugador2 = rand() % 6 + 1;
+        cout << jugadores[0] << " tira dado: " << dadoJugador1 << endl;
+        cout << jugadores[1] << " tira dado: " << dadoJugador2 << endl;
+
+        if (dadoJugador1 > dadoJugador2) {
+            turnoJugador[0] = jugadores[0];
+            turnoJugador[1] = jugadores[1];
+            cout << turnoJugador[0] << " comienza la partida." << endl;
+        } else if (dadoJugador2 > dadoJugador1) {
+            turnoJugador[0] = jugadores[1];
+            turnoJugador[1] = jugadores[0];
+            cout << turnoJugador[0] << " comienza la partida." << endl;
+        } else {
+            cout << "Empate, vuelvan a tirar." << endl;
+        }
+    } while (dadoJugador1 == dadoJugador2);
+
+
+}
+
+int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1[], int dadosStockJugador2[], int numeroObjetivo, int puntosAcumulados[2],int cantDadosJugador1,int cantDadosJugador2) {
+    // Arrancamos la ronda actual en 1 si es que viene cero o menos
+    if (rondaActual < 1) {
+        rondaActual = 1;
+    }
+
+    // El jugador que comienza es el jugadorActual que recibimos, que debería venir de turnoJugador[0]
+    cout << "Ronda actual: " << rondaActual << endl;
+    cout << "Turno del jugador: " << jugadorActual << endl;
+
+
+
+    return rondaActual;
+}
