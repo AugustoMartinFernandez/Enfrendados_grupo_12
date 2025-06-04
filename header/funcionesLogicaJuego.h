@@ -33,4 +33,17 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                 int dadosOponente[], int &cantidadStockOponente,
                 int dadosElegidos[], int &cantidadElegidos, int &puntosJugador,
                 int &puntosOponente, int numeroObjetivo);
+
+
+                void nombreJugadores(string jugadores[2]);
+void ordenDePartida(string jugadores[2], string turnoJugador[2]);
+
+int estadoDelJuego(int rondaActual,
+                   std::string jugadorActual,
+                   int dadosStockJugador1[], int& cantDadosJugador1,
+                   int dadosStockJugador2[], int& cantDadosJugador2,
+                   int numeroObjetivo,
+                   int puntosAcumulados[]);
+
+
 #endif
