@@ -18,6 +18,7 @@ int contarDadosStock(int dados[], int sizeMax) {
   return cantidad;
 }
 
+
 void mostrarDados(const int dados[], int cantidad) {
   for (int i = 0; i < cantidad; i++)
   {
