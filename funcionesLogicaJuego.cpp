@@ -1,8 +1,25 @@
 #include "funcionesLogicaJuego.h"
 #include <iostream>
 #include <string>
-
 using namespace std;
+
+int tirarDados6Caras(){ ///La funcion rand() da un numero random esto complementado con el srand(time(nullptr)) devuelve un numero distinto por cada tirada ya que usa la hora del pc
+    return rand()%6+1;  /// rand()%6 te da un num del 0 al 5 si se le suma 1 te da del 1 al 6
+}
+
+
+
+
+int tirarDados12Caras(){ ///La funcion rand() da un numero random esto complementado con el srand(time(nullptr)) devuelve un numero distinto por cada tirada ya que usa la hora del pc
+    return rand()%12+1;  /// rand()%12 te da un num del 0 al 11 si se le suma 1 te da del 1 al 12
+}
+
+
+
+
+
+
+
 
 // Constantes generales
 const int MAX_DADOS = 11;
