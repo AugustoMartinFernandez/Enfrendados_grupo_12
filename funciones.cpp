@@ -1,33 +1,38 @@
 #include "funciones.h"
 #include <iostream>
 #include <string>
-
+#include "rlutil.h"
 using namespace std;
-/*
-- Solicita al usuario que ingrese un nombre mostrando el mensaje indicado.
-- Valida que el nombre no este vacío y repite la solicitud hasta que
-- se ingrese un nombre valido.
-El metodo .empty() verifica si una cadena de texto esta vacia.
-- Retorna true si la cadena no contiene ningun caracter (longitud 0),
-- y false si tiene uno o mas caracteres.
-*/
-string pedirNombre(string mensaje)
-{
-  string nombre;
-  while (nombre.empty()){
-    cout << mensaje;
-    getline(cin, nombre);
-    if (nombre.empty())
-    {
-      cout << "Debes ingresar un nombre valido. Intenta de nuevo.\n";
-    }
-  }
-  return nombre;
+
+
+void mostrarBienvenida(){
+ // Pantalla de bienvenida inicial con estilo
+    cout << "+=====================================+" << endl;
+    cout << "|         BIENVENIDOS A ENFRENDADOS    |" << endl;
+    cout << "|           EL JUEGO DE DADOS         |" << endl;
+    cout << "+=====================================+" << endl;
+    cout << "|  Por favor, ingresa tu nombre para  |" << endl;
+    cout << "|           comenzar a jugar          |" << endl;
+    cout << "+-------------------------------------+" << endl;
 }
 
-// Función para imprimir el banner en ASCII
-void imprimirBanner()
-{
+
+
+
+void imprimirBannerBienvenida(string jugador1){
+    cout << endl;
+    cout << endl;
+    cout << "+---------------------------------------------------------------------------------------+" << endl;
+    cout << "| Bienvenido, " << jugador1 << " Preparate para tirar los dados y demostrar tu suerte.  |" << endl;
+    cout << "+---------------------------------------------------------------------------------------+" << endl;
+    system("pause"); // Pausa despues de mostrar bienvenida
+    rlutil::cls();
+}
+
+
+/// Función para imprimir el banner en ASCII
+void imprimirBanner(){
+    rlutil::cls();
     cout << "\n";
     cout << " _____ _   _ _____ ____  _____ _   _ ____   _    ____   ___  ____  \n";
     cout << "| ____| \\ | |  ___|  _ \\| ____| \\ | |  _ \\ / \\  |  _ \\ / _ \\/ ___| \n";
@@ -37,12 +42,14 @@ void imprimirBanner()
     cout << "\n";
 }
 
-/*
+
+
+
+/**
  - Muestra en pantalla el menu principal del juego con las opciones disponibles.
  - Solicita al usuario que ingrese una opcion numerica y la retorna.
 */
-int mostrarMenu()
-{
+int mostrarMenu(){
   int opcionMenu;
 
   cout << endl;
@@ -62,13 +69,121 @@ int mostrarMenu()
   return opcionMenu;
 }
 
+
+
+
+/*
+--> Imprime en consola un recuadro con el 'titulo' pasado como parametro, centrado entre bordes,
+--> seguido de un texto explicativo proporcionado en 'mensaje'. Luego llama a system("pause")
+--> para que el usuario pueda leer el contenido antes de proseguir.
+-> Texto principal que identifica la sección (por ejemplo, "ESTADISTICAS").
+-> Texto adicional o subtitulo que aclara que está sucediendo en esa seccion.
+*/
+void mostrarSeccion(string titulo, string mensaje)
+{
+  cout << "+=====================================+" << endl;
+  cout << "|------ " << titulo << " -------->" << endl;
+  cout << "+=====================================+" << endl;
+  cout << mensaje << endl;
+   // Pausa para que el usuario lea la seccion antes de continuar
+}
+
+
+
+
+void bannerJugadorDos(){
+        cout << "+=====================================+" << endl;
+        cout << "|   INGRESE NOMBRE DEL JUGADOR 2      |" << endl;
+        cout << "+=====================================+" << endl;
+}
+
+
+
+
+void bannerJugadoresRegistrados(string jugador1, string jugador2){
+        cout << "\n";
+        cout << "+=====================================+" << endl;
+        cout << "|      JUGADORES REGISTRADOS          |" << endl;
+        cout << "|-------------------------------------|" << endl;
+        cout << "--> Jugador 1: " << jugador1 << endl;
+        cout << "--> Jugador 2: " << jugador2 << endl;
+        cout << "+=====================================+" << endl<< endl;
+}
+
+
+
+
+void bannerSorteo(){
+    cout << endl<< "Sorteo" << endl;
+    cout << "=======" << endl<<endl;
+}
+
+
+
+
+void mostrarCreditos()
+{
+  cout << "+=====================================+" << endl;
+  cout << "|             CREDITOS                |" << endl;
+  cout << "+=====================================+" << endl;
+  cout << "|    DESARROLLADO POR EL EQUIPO:      |" << endl;
+  cout << "|              '12'                   |" << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << "|           INTEGRANTES:              |" << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << "--> Fernandez, Augusto Martin - Legajo: 12345    " << endl;
+  cout << "--> Gimenez, Lautaro Nehuen - Legajo: 32432    " << endl;
+  cout << "--> Apellido, Nombre - Legajo: 12347    " << endl;
+  cout << "--> Apellido, Nombre - Legajo: 12348    " << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << "|    DISTRIBUCION DEL TRABAJO:        |" << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << "-> Menu y Creditos: Fernandez Augusto Martin        " << endl;
+  cout << "-> Logica del Juego: Apellido2       " << endl;
+  cout << "-> Funciones de Dados: Apellido3     " << endl;
+  cout << "-> Validaciones: Apellido4           " << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << "|    MATERIA: Programacion I          |" << endl;
+  cout << "|    ANIO: 2025 - Primer Cuatrimestre |" << endl;
+  cout << "+-------------------------------------+" << endl;
+  cout << endl;
+  system("pause");
+}
+
+
+
+
+
+/*
+- Solicita al usuario que ingrese un nombre mostrando el mensaje indicado.
+- Valida que el nombre no este vacío y repite la solicitud hasta que
+- se ingrese un nombre valido.
+El metodo .empty() verifica si una cadena de texto esta vacia.
+- Retorna true si la cadena no contiene ningun caracter (longitud 0),
+- y false si tiene uno o mas caracteres.
+*/
+string pedirNombre(string mensaje){
+  string nombre;
+  while (nombre.empty()){
+    cout << mensaje;
+    getline(cin, nombre);
+    if (nombre.empty())
+    {
+      cout << "Debes ingresar un nombre valido. Intenta de nuevo.\n";
+    }
+  }
+  return nombre;
+}
+
+
+
+
 /*
  --> Imprime en consola un recuadro con el texto recibido en 'mensaje'
  --> seguido de "(S/N):", lee un caracter de la entrada estandar
  --> y lo retorna. Se utiliza para preguntas de confirmacion.
  */
-char pedirLetra(string mensaje)
-{
+char pedirLetra(string mensaje){
   char letra;
   cout << "+---------------------------------------+" << endl;
   cout << "|  " << mensaje << "  (S/N):     |" << endl;
@@ -77,6 +192,10 @@ char pedirLetra(string mensaje)
   cin >> letra;
   return letra;
 }
+
+
+
+
 /*
 --> Pregunta al usuario si desea salir del programa, pidiendo confirmacion en dos pasos:
 --> 1) "¿Quieres salir del programa?" (S/N)
@@ -124,57 +243,4 @@ bool confirmarSalida()
     system("pause");
     return false; // Entrada invalida, no sale
   }
-}
-/*
---> Imprime en consola un recuadro con el 'titulo' pasado como parametro, centrado entre bordes,
---> seguido de un texto explicativo proporcionado en 'mensaje'. Luego llama a system("pause")
---> para que el usuario pueda leer el contenido antes de proseguir.
--> Texto principal que identifica la sección (por ejemplo, "ESTADISTICAS").
--> Texto adicional o subtitulo que aclara que está sucediendo en esa seccion.
-*/
-void mostrarSeccion(string titulo, string mensaje)
-{
-  cout << "+=====================================+" << endl;
-  cout << "|------ " << titulo << " -------->" << endl;
-  cout << "+=====================================+" << endl;
-  cout << mensaje << endl;
-   // Pausa para que el usuario lea la seccion antes de continuar
-}
-
-
-int tirarDados6Caras(){
-    return rand()%6+1;
-}
-
-int tirarDados12Caras(){
-    return rand()%12+1;
-}
-
-void mostrarCreditos()
-{
-  cout << "+=====================================+" << endl;
-  cout << "|             CREDITOS                |" << endl;
-  cout << "+=====================================+" << endl;
-  cout << "|    DESARROLLADO POR EL EQUIPO:      |" << endl;
-  cout << "|              '12'                   |" << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << "|           INTEGRANTES:              |" << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << "--> Fernandez, Augusto Martin - Legajo: 12345    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12346    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12347    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12348    " << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << "|    DISTRIBUCION DEL TRABAJO:        |" << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << "-> Menu y Creditos: Fernandez Augusto Martin        " << endl;
-  cout << "-> Logica del Juego: Apellido2       " << endl;
-  cout << "-> Funciones de Dados: Apellido3     " << endl;
-  cout << "-> Validaciones: Apellido4           " << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << "|    MATERIA: Programacion I          |" << endl;
-  cout << "|    ANIO: 2025 - Primer Cuatrimestre |" << endl;
-  cout << "+-------------------------------------+" << endl;
-  cout << endl;
-  system("pause");
 }

@@ -5,6 +5,10 @@
 
 using namespace std;
 
+int tirarDados6Caras();
+
+int tirarDados12Caras();
+
 int contarDadosStock(int dados[], int sizeMax);
 
 void mostrarDados(const int dados[], int cantidad);
@@ -38,8 +42,7 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                 void nombreJugadores(string jugadores[2]);
 void ordenDePartida(string jugadores[2], string turnoJugador[2]);
 
-int estadoDelJuego(int rondaActual,
-                   std::string jugadorActual,
+int estadoDelJuego(int rondaActual, string jugadorActual,
                    int dadosStockJugador1[], int& cantDadosJugador1,
                    int dadosStockJugador2[], int& cantDadosJugador2,
                    int numeroObjetivo,
