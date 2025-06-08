@@ -202,7 +202,7 @@ historialPuntPerdedor = puntos[1 - indiceGanador]; // Puntaje del perdedor
 }
 
 cout << "Jugador con mayor puntaje histórico: " << historialjugGanador << endl;
-cout << "Puntaje del jugador perdedor: " << historialPuntPerdedor << endl;
+cout << "Puntaje del jugador: " << historialPuntPerdedor << endl;
 cout << "+=====================================+" << endl;
 
 system("pause");
