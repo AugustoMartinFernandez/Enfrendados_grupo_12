@@ -22,7 +22,7 @@ void mostrarBienvenida();
 void imprimirBannerBienvenida(string nombre);
 
 // Declaración de la función para imprimir el banner en ASCII Art
-void imprimirBanner(); 
+void imprimirBanner();
 
 /*
  - Muestra en pantalla el menu principal del juego con las opciones disponibles.
@@ -54,6 +54,12 @@ void mostrarCreditos();
  --> y lo retorna. Se utiliza para preguntas de confirmacion.
  */
 char pedirLetra(string mensaje);
+
+// La función mostrarEstadisticas muestra las estadísticas del juego, evaluando
+// los puntos acumulados por los jugadores y actualizando el historial del jugador
+// con mayor puntaje y el puntaje del perdedor si aún no se han registrado.
+void mostrarEstadisticas(const string jugadores[], const int puntos[],
+                         string &historialjugGanador, int &historialPuntPerdedor);
 
 /*
 --> Pregunta al usuario si desea salir del programa, pidiendo confirmacion en dos pasos:

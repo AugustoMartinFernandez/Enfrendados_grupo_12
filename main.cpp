@@ -16,7 +16,7 @@ int main()
     mostrarBienvenida();
     jugadores[0] = pedirNombre("-> ");
     imprimirBannerBienvenida(jugadores[0]);
-    // imprimirBanner();
+    imprimirBanner();
 
     do {
       salir = mostrarMenu(jugadores);

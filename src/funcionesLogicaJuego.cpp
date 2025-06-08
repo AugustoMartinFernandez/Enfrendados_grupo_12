@@ -229,7 +229,7 @@ int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1
 void registrarJugadores(string jugadores[])
 {
   jugadores[1] = pedirNombre("-> ");
-  // imprimirBanner();
+  imprimirBanner();
 
   bannerJugadoresRegistrados(jugadores[0], jugadores[1]);
   system("pause");
@@ -240,7 +240,7 @@ void tirarYMostrarDado(const string &jugador, int &resultado)
   cout << jugador << " tire dado." << endl
        << endl;
   system("pause");
-  // imprimirBanner();
+  imprimirBanner();
   resultado = tirarDados6Caras();
   cout << "Su numero es: " << resultado << endl
        << endl;
@@ -256,11 +256,11 @@ string ordenDePartida(const string jugadores[], string &turno)
   do
   {
     tirarYMostrarDado(jugadores[0], resultadoUno);
-    // imprimirBanner();
+    imprimirBanner();
     tirarYMostrarDado(jugadores[1], resultadoDos);
   } while (resultadoUno == resultadoDos);
 
-  // imprimirBanner();
+  imprimirBanner();
   if (resultadoUno > resultadoDos)
   {
     turno = jugadores[0];
@@ -279,11 +279,11 @@ string ordenDePartida(const string jugadores[], string &turno)
 
 int obtenerNumeroObjetivo()
 {
-  // imprimirBanner();
+  imprimirBanner();
   cout << "Tire los dados de doce caras para saber su numero objetivo" << endl
        << endl;
   system("pause");
-  // imprimirBanner();
+  imprimirBanner();
 
   int primerDado = tirarDados12Caras();
   int segundoDado = tirarDados12Caras();
@@ -310,7 +310,7 @@ void comienzoDelJuego(string jugadores[], int puntos[])
   int cantidadElegidos2 = 0;
   string turno;
 
-  // imprimirBanner();
+  imprimirBanner();
   mostrarSeccion("Enfrendados de a Dos", "Has seleccionado jugar con 2 jugadores.\n");
   registrarJugadores(jugadores);
   ordenDePartida(jugadores, turno);

@@ -57,6 +57,9 @@ bool mostrarMenu(string jugadores[])
 {
   int opcionMenu;
   int puntos[2] = {0, 0};
+  string historialjugGanador;
+  int historialPuntPerdedor = 0;
+
 
   cout << endl;
   cout << "+=====================================+" << endl;
@@ -78,7 +81,7 @@ bool mostrarMenu(string jugadores[])
     comienzoDelJuego(jugadores, puntos);
     break;
   case 2:
-    mostrarSeccion("ESTADISTICAS", "Cargando estadisticas...\n");
+    mostrarEstadisticas(jugadores, puntos, historialjugGanador, historialPuntPerdedor);
     break;
   case 3:
     mostrarCreditos();
@@ -185,6 +188,26 @@ void bannerSorteo()
        << endl;
 }
 
+void mostrarEstadisticas(const string jugadores[], const int puntos[], 
+  string &historialjugGanador, int &historialPuntPerdedor) {
+cout << "+=====================================+" << endl;
+cout << "|           ESTADISTICAS              |" << endl;
+cout << "+=====================================+" << endl;
+
+if (historialjugGanador.empty()) {
+// Determinar el jugador con mayor puntaje
+int indiceGanador = (puntos[0] > puntos[1]) ? 0 : 1;
+historialjugGanador = jugadores[indiceGanador];
+historialPuntPerdedor = puntos[1 - indiceGanador]; // Puntaje del perdedor
+}
+
+cout << "Jugador con mayor puntaje histórico: " << historialjugGanador << endl;
+cout << "Puntaje del jugador perdedor: " << historialPuntPerdedor << endl;
+cout << "+=====================================+" << endl;
+
+system("pause");
+}
+
 void mostrarCreditos()
 {
   cout << "+=====================================+" << endl;
@@ -195,10 +218,10 @@ void mostrarCreditos()
   cout << "+-------------------------------------+" << endl;
   cout << "|           INTEGRANTES:              |" << endl;
   cout << "+-------------------------------------+" << endl;
-  cout << "--> Fernandez, Augusto Martin - Legajo: 12345    " << endl;
-  cout << "--> Canela, Gabriela Maribel - Legajo: 12346    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12347    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12348    " << endl;
+  cout << "--> Fernandez, Augusto Martin - Legajo: -    " << endl;
+  cout << "--> Canela, Gabriela Maribel - Legajo: -    " << endl;
+  cout << "--> Gimenez, Lautaro Nehuen - Legajo: -    " << endl;
+  cout << "--> Lavini, Ignacio German - Legajo: -    " << endl;
   cout << "+-------------------------------------+" << endl;
   cout << "|    DISTRIBUCION DEL TRABAJO:        |" << endl;
   cout << "+-------------------------------------+" << endl;
