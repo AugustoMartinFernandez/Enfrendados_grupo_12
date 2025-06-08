@@ -1,5 +1,5 @@
-#ifndef FUNCIONES_H
-#define FUNCIONES_H
+#ifndef FUNCIONESINTERFAZUDUARIO_H
+#define FUNCIONESINTERFAZUDUARIO_H
 #include <iostream>
 #include <string>
 
@@ -7,11 +7,11 @@ using namespace std;
 
 void mostrarBienvenida();
 
-void imprimirBannerBienvenida(string);
+void imprimirBannerBienvenida(string nombre);
 
 void imprimirBanner(); // Declaración de la función para imprimir el banner en ASCII Art
 
-int mostrarMenu();
+bool mostrarMenu(string jugadores[]);
 // Pide al usuario que ingrese un nombre mostrando el texto pasado en “mensaje” y valida que la cadena no quede vacia.
 // Repite hasta que el usuario escriba algo.
 
@@ -35,7 +35,5 @@ char pedirLetra(string mensaje);
 bool confirmarSalida();
 // Muestra el Titulo y Subtitulo de cada seccion Ejemplo: Titulo = Enfrendados
 // de a Dos, Subtitulo = Has seleccionado jugar con 2 jugadores.
-
-
 
 #endif

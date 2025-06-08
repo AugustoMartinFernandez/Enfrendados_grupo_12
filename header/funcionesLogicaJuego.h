@@ -1,5 +1,5 @@
 #ifndef FUNCIONESLOGICAJUEGO_H
-#define FUNCIONESLOGICAJUEGO_H_H
+#define FUNCIONESLOGICAJUEGO_H
 #include <iostream>
 #include <string>
 
@@ -38,15 +38,20 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                 int dadosElegidos[], int &cantidadElegidos, int &puntosJugador,
                 int &puntosOponente, int numeroObjetivo);
 
-
-                void nombreJugadores(string jugadores[2]);
-void ordenDePartida(string jugadores[2], string turnoJugador[2]);
+// void ordenDePartida(string jugadores[2], string turnoJugador[2]);
 
 int estadoDelJuego(int rondaActual, string jugadorActual,
-                   int dadosStockJugador1[], int& cantDadosJugador1,
-                   int dadosStockJugador2[], int& cantDadosJugador2,
+                   int dadosStockJugador1[], int &cantDadosJugador1,
+                   int dadosStockJugador2[], int &cantDadosJugador2,
                    int numeroObjetivo,
                    int puntosAcumulados[]);
 
+void realizarSorteo(const string jugadores[], string &primero, string &segundo);
+int obtenerNumeroObjetivo();
+void registrarJugadores(string jugadores[]);
+void comienzoDelJuego(string jugadores[]);
+void tirarYMostrarDado(const string &jugador, int &resultado);
+string ordenDePartida(const string jugadores[], string &turno);
+void obtenerDadosStock(int dadosJugador1[]);
 
 #endif

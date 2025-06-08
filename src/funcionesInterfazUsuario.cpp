@@ -1,7 +1,8 @@
-#include "funciones.h"
+#include "funcionesInterfazUsuario.h"
+#include "funcionesLogicaJuego.h"
 #include <iostream>
 #include <string>
-
+#include "../rlutil.h"
 using namespace std;
 /*
 - Solicita al usuario que ingrese un nombre mostrando el mensaje indicado.
@@ -26,26 +27,48 @@ string pedirNombre(string mensaje)
   return nombre;
 }
 
+void mostrarBienvenida()
+{
+  // Pantalla de bienvenida inicial con estilo
+  cout << "+=====================================+" << endl;
+  cout << "|         BIENVENIDOS A ENFRENDADOS    |" << endl;
+  cout << "|           EL JUEGO DE DADOS         |" << endl;
+  cout << "+=====================================+" << endl;
+  cout << "|  Por favor, ingresa tu nombre para  |" << endl;
+  cout << "|           comenzar a jugar          |" << endl;
+  cout << "+-------------------------------------+" << endl;
+}
+
+void imprimirBannerBienvenida(string jugador)
+{
+  cout << endl;
+  cout << endl;
+  cout << "+---------------------------------------------------------------------------------------+" << endl;
+  cout << "| Bienvenido, " << jugador << " Preparate para tirar los dados y demostrar tu suerte.  |" << endl;
+  cout << "+---------------------------------------------------------------------------------------+" << endl;
+  system("pause"); // Pausa despues de mostrar bienvenida
+  rlutil::cls();
+}
+
 // Función para imprimir el banner en ASCII
 void imprimirBanner()
 {
-    cout << "\n";
-    cout << " _____ _   _ _____ ____  _____ _   _ ____   _    ____   ___  ____  \n";
-    cout << "| ____| \\ | |  ___|  _ \\| ____| \\ | |  _ \\ / \\  |  _ \\ / _ \\/ ___| \n";
-    cout << "|  _| |  \\| | |_  | |_) |  _| |  \\| | | | / _ \\ | | | | | | \\___ \\ \n";
-    cout << "| |___| |\\  |  _| |  _ <| |___| |\\  | |_| / ___ \\| |_| | |_| |___) |\n";
-    cout << "|_____|_| \\_|_|   |_| \\_\\_____|_| \\_|____/_/   \\_\\____/ \\___/|____/ \n";
-    cout << "\n";
+  cout << "\n";
+  cout << " _____ _   _ _____ ____  _____ _   _ ____   _    ____   ___  ____  \n";
+  cout << "| ____| \\ | |  ___|  _ \\| ____| \\ | |  _ \\ / \\  |  _ \\ / _ \\/ ___| \n";
+  cout << "|  _| |  \\| | |_  | |_) |  _| |  \\| | | | / _ \\ | | | | | | \\___ \\ \n";
+  cout << "| |___| |\\  |  _| |  _ <| |___| |\\  | |_| / ___ \\| |_| | |_| |___) |\n";
+  cout << "|_____|_| \\_|_|   |_| \\_\\_____|_| \\_|____/_/   \\_\\____/ \\___/|____/ \n";
+  cout << "\n";
 }
 
 /*
  - Muestra en pantalla el menu principal del juego con las opciones disponibles.
  - Solicita al usuario que ingrese una opcion numerica y la retorna.
 */
-int mostrarMenu()
+bool mostrarMenu(string jugadores[])
 {
   int opcionMenu;
-
   cout << endl;
   cout << "+=====================================+" << endl;
   cout << "|      MENU PRINCIPAL DEL JUEGO       |" << endl;
@@ -60,7 +83,27 @@ int mostrarMenu()
   cin >> opcionMenu;
   cout << "---------------------------------------" << endl;
 
-  return opcionMenu;
+  switch (opcionMenu)
+  {
+  case 1:
+    comienzoDelJuego(jugadores);
+    break;
+  case 2:
+    mostrarSeccion("ESTADISTICAS", "Cargando estadisticas...\n");
+    break;
+  case 3:
+    mostrarCreditos();
+    break;
+  case 0:
+    return confirmarSalida(); // ← devuelve true si el usuario confirma salir
+    break;
+
+  default:
+    cout << "Opcion invalida. Intenta de nuevo." << endl;
+    system("pause");
+  }
+
+  return false; // ← seguir en el menú
 }
 
 /*
@@ -141,6 +184,33 @@ void mostrarSeccion(string titulo, string mensaje)
   cout << mensaje << endl;
   system(
       "pause"); // Pausa para que el usuario lea la seccion antes de continuar
+}
+
+void bannerJugadorDos()
+{
+  cout << "+=====================================+" << endl;
+  cout << "|   INGRESE NOMBRE DEL JUGADOR 2      |" << endl;
+  cout << "+=====================================+" << endl;
+}
+
+void bannerJugadoresRegistrados(string jugador1, string jugador2)
+{
+  cout << "\n";
+  cout << "+=====================================+" << endl;
+  cout << "|      JUGADORES REGISTRADOS          |" << endl;
+  cout << "|-------------------------------------|" << endl;
+  cout << "--> Jugador 1: " << jugador1 << endl;
+  cout << "--> Jugador 2: " << jugador2 << endl;
+  cout << "+=====================================+" << endl
+       << endl;
+}
+
+void bannerSorteo()
+{
+  cout << endl
+       << "Sorteo" << endl;
+  cout << "+=====================================+" << endl
+       << endl;
 }
 
 void mostrarCreditos()
