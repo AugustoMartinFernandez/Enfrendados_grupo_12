@@ -4,27 +4,28 @@
 #include <string>
 using namespace std;
 
-int tirarDados6Caras()
-{                        /// La funcion rand() da un numero random esto complementado con el srand(time(nullptr)) devuelve un numero distinto por cada tirada ya que usa la hora del pc
-  return rand() % 6 + 1; /// rand()%6 te da un num del 0 al 5 si se le suma 1 te da del 1 al 6
-}
-
-int tirarDados12Caras()
-{                         /// La funcion rand() da un numero random esto complementado con el srand(time(nullptr)) devuelve un numero distinto por cada tirada ya que usa la hora del pc
-  return rand() % 12 + 1; /// rand()%12 te da un num del 0 al 11 si se le suma 1 te da del 1 al 12
-}
-
-void obtenerDadosStock(int dadosJugador1[])
-{
-  for (int i = 0; i < 6; i++)
-  {
-    dadosJugador1[i] = tirarDados6Caras();
-  }
-}
-
 // Constantes generales
 const int MAX_DADOS = 11;
 const int RONDAS = 3;
+
+int tirarDados6Caras()
+{
+
+  return rand() % 6 + 1;
+}
+
+int tirarDados12Caras()
+{
+  return rand() % 12 + 1;
+}
+
+void obtenerDadosStock(int dadosJugador[])
+{
+  for (int i = 0; i < 6; i++)
+  {
+    dadosJugador[i] = tirarDados6Caras();
+  }
+}
 
 int contarDadosStock(int dados[], int sizeMax)
 {
@@ -198,10 +199,10 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
   {
     agregarDadosSeleccionados(dadosJugador, indicesSeleccionados,
                               cantidadATomar, dadosElegidos, cantidadElegidos);
-    int dummyStock = cantidadStockJugador;
-    eliminarDadosSeleccionados(dadosJugador, dummyStock, indicesSeleccionados,
+    int cantidadDeDadosUsados = cantidadStockJugador;
+    eliminarDadosSeleccionados(dadosJugador, cantidadDeDadosUsados, indicesSeleccionados,
                                cantidadATomar);
-    cantidadStockJugador = dummyStock;
+    cantidadStockJugador = cantidadDeDadosUsados;
   }
 
   procesarResultado(suma, numeroObjetivo, cantidadATomar, dadosJugador,
@@ -298,7 +299,7 @@ int obtenerNumeroObjetivo()
   return objetivo;
 }
 
-void comienzoDelJuego(string jugadores[])
+void comienzoDelJuego(string jugadores[], int puntos[])
 {
   int numeroObjetivo[2];
   int dadosJugador1[MAX_DADOS] = {};
@@ -307,7 +308,6 @@ void comienzoDelJuego(string jugadores[])
   int dadosElegidos2[MAX_DADOS];
   int cantidadElegidos1 = 0;
   int cantidadElegidos2 = 0;
-  int puntos[2] = {0, 0};
   string turno;
 
   // imprimirBanner();

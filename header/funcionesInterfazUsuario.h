@@ -5,16 +5,38 @@
 
 using namespace std;
 
+/*
+- Solicita al usuario que ingrese un nombre mostrando el mensaje indicado.
+- Valida que el nombre no este vacío y repite la solicitud hasta que
+- se ingrese un nombre valido.
+El metodo .empty() verifica si una cadena de texto esta vacia.
+- Retorna true si la cadena no contiene ningun caracter (longitud 0),
+- y false si tiene uno o mas caracteres.
+*/
+string pedirNombre(string mensaje);
+
+// Pantalla de bienvenida inicial
 void mostrarBienvenida();
 
+// Pantalla de bienvenida jugador unicial
 void imprimirBannerBienvenida(string nombre);
 
-void imprimirBanner(); // Declaración de la función para imprimir el banner en ASCII Art
+// Declaración de la función para imprimir el banner en ASCII Art
+void imprimirBanner(); 
 
+/*
+ - Muestra en pantalla el menu principal del juego con las opciones disponibles.
+ - Solicita al usuario que ingrese una opcion numerica y ejecuta la accion.
+*/
 bool mostrarMenu(string jugadores[]);
-// Pide al usuario que ingrese un nombre mostrando el texto pasado en “mensaje” y valida que la cadena no quede vacia.
-// Repite hasta que el usuario escriba algo.
 
+/*
+--> Imprime en consola un recuadro con el 'titulo' pasado como parametro, centrado entre bordes,
+--> seguido de un texto explicativo proporcionado en 'mensaje'. Luego llama a system("pause")
+--> para que el usuario pueda leer el contenido antes de proseguir.
+-> Texto principal que identifica la sección (por ejemplo, "ESTADISTICAS").
+-> Texto adicional o subtitulo que aclara que está sucediendo en esa seccion.
+*/
 void mostrarSeccion(string, string);
 // Mostrara la seccion de Creditos, quienes desarrollaron Enfrendados
 
@@ -26,14 +48,20 @@ void bannerSorteo();
 
 void mostrarCreditos();
 
-string pedirNombre(string mensaje);
-// Muestra un recuadro con el texto que le llega en 'mensaje', indicando al usuario  que responda con S o N. Se la usa dentro de confirmarSalida() para preguntar dos veces ¿Quieres salir? y luego ¿Estás seguro?.
-
+/*
+ --> Imprime en consola un recuadro con el texto recibido en 'mensaje'
+ --> seguido de "(S/N):", lee un caracter de la entrada estandar
+ --> y lo retorna. Se utiliza para preguntas de confirmacion.
+ */
 char pedirLetra(string mensaje);
-// Funcion para confirmar salida del Menu
 
+/*
+--> Pregunta al usuario si desea salir del programa, pidiendo confirmacion en dos pasos:
+--> 1) "¿Quieres salir del programa?" (S/N)
+--> 2) Si responde 'S', pregunta "¿Estás seguro?" (S/N)
+-> Segun las respuestas, imprime mensajes de salida, cancelacion o
+-> seguimiento, hace una pausa y devuelve true (para salir) o false.
+ */
 bool confirmarSalida();
-// Muestra el Titulo y Subtitulo de cada seccion Ejemplo: Titulo = Enfrendados
-// de a Dos, Subtitulo = Has seleccionado jugar con 2 jugadores.
 
 #endif

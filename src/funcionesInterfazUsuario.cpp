@@ -4,14 +4,7 @@
 #include <string>
 #include "../rlutil.h"
 using namespace std;
-/*
-- Solicita al usuario que ingrese un nombre mostrando el mensaje indicado.
-- Valida que el nombre no este vacío y repite la solicitud hasta que
-- se ingrese un nombre valido.
-El metodo .empty() verifica si una cadena de texto esta vacia.
-- Retorna true si la cadena no contiene ningun caracter (longitud 0),
-- y false si tiene uno o mas caracteres.
-*/
+
 string pedirNombre(string mensaje)
 {
   string nombre;
@@ -29,7 +22,6 @@ string pedirNombre(string mensaje)
 
 void mostrarBienvenida()
 {
-  // Pantalla de bienvenida inicial con estilo
   cout << "+=====================================+" << endl;
   cout << "|         BIENVENIDOS A ENFRENDADOS    |" << endl;
   cout << "|           EL JUEGO DE DADOS         |" << endl;
@@ -50,7 +42,6 @@ void imprimirBannerBienvenida(string jugador)
   rlutil::cls();
 }
 
-// Función para imprimir el banner en ASCII
 void imprimirBanner()
 {
   cout << "\n";
@@ -62,13 +53,11 @@ void imprimirBanner()
   cout << "\n";
 }
 
-/*
- - Muestra en pantalla el menu principal del juego con las opciones disponibles.
- - Solicita al usuario que ingrese una opcion numerica y la retorna.
-*/
 bool mostrarMenu(string jugadores[])
 {
   int opcionMenu;
+  int puntos[2] = {0, 0};
+
   cout << endl;
   cout << "+=====================================+" << endl;
   cout << "|      MENU PRINCIPAL DEL JUEGO       |" << endl;
@@ -86,7 +75,7 @@ bool mostrarMenu(string jugadores[])
   switch (opcionMenu)
   {
   case 1:
-    comienzoDelJuego(jugadores);
+    comienzoDelJuego(jugadores, puntos);
     break;
   case 2:
     mostrarSeccion("ESTADISTICAS", "Cargando estadisticas...\n");
@@ -106,11 +95,6 @@ bool mostrarMenu(string jugadores[])
   return false; // ← seguir en el menú
 }
 
-/*
- --> Imprime en consola un recuadro con el texto recibido en 'mensaje'
- --> seguido de "(S/N):", lee un caracter de la entrada estandar
- --> y lo retorna. Se utiliza para preguntas de confirmacion.
- */
 char pedirLetra(string mensaje)
 {
   char letra;
@@ -121,13 +105,7 @@ char pedirLetra(string mensaje)
   cin >> letra;
   return letra;
 }
-/*
---> Pregunta al usuario si desea salir del programa, pidiendo confirmacion en dos pasos:
---> 1) "¿Quieres salir del programa?" (S/N)
---> 2) Si responde 'S', pregunta "¿Estás seguro?" (S/N)
--> Segun las respuestas, imprime mensajes de salida, cancelacion o
--> seguimiento, hace una pausa y devuelve true (para salir) o false.
- */
+
 bool confirmarSalida()
 {
   char letra = pedirLetra("Quieres salir del programa?");
@@ -169,13 +147,7 @@ bool confirmarSalida()
     return false; // Entrada invalida, no sale
   }
 }
-/*
---> Imprime en consola un recuadro con el 'titulo' pasado como parametro, centrado entre bordes,
---> seguido de un texto explicativo proporcionado en 'mensaje'. Luego llama a system("pause")
---> para que el usuario pueda leer el contenido antes de proseguir.
--> Texto principal que identifica la sección (por ejemplo, "ESTADISTICAS").
--> Texto adicional o subtitulo que aclara que está sucediendo en esa seccion.
-*/
+
 void mostrarSeccion(string titulo, string mensaje)
 {
   cout << "+=====================================+" << endl;
@@ -224,7 +196,7 @@ void mostrarCreditos()
   cout << "|           INTEGRANTES:              |" << endl;
   cout << "+-------------------------------------+" << endl;
   cout << "--> Fernandez, Augusto Martin - Legajo: 12345    " << endl;
-  cout << "--> Apellido, Nombre - Legajo: 12346    " << endl;
+  cout << "--> Canela, Gabriela Maribel - Legajo: 12346    " << endl;
   cout << "--> Apellido, Nombre - Legajo: 12347    " << endl;
   cout << "--> Apellido, Nombre - Legajo: 12348    " << endl;
   cout << "+-------------------------------------+" << endl;
