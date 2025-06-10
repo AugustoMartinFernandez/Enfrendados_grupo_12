@@ -44,12 +44,12 @@ Desarrollado por el equipo **'12'**:
 ## Cómo ejecutar
 
 1. Compilar el programa (por ejemplo, con g++):  
-g++ src/main.cpp src/funciones.cpp -o Enfrendados.exe
+g++ main.cpp src/funcionesLogicaJuego.cpp src/funcionesInterfazUsuario.cpp -Iheader -o enfrentados
 
 text
 
 2. Ejecutar el programa:  
-./Enfrendados.exe
+./enfrentados
 
 text
 
