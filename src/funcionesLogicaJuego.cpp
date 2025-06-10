@@ -1,14 +1,34 @@
 #include "funcionesLogicaJuego.h"
+#include "funcionesInterfazUsuario.h"
 #include <iostream>
 #include <string>
-
 using namespace std;
 
 // Constantes generales
 const int MAX_DADOS = 11;
 const int RONDAS = 3;
 
-int contarDadosStock(int dados[], int sizeMax) {
+int tirarDados6Caras()
+{
+
+  return rand() % 6 + 1;
+}
+
+int tirarDados12Caras()
+{
+  return rand() % 12 + 1;
+}
+
+void obtenerDadosStock(int dadosJugador[])
+{
+  for (int i = 0; i < 6; i++)
+  {
+    dadosJugador[i] = tirarDados6Caras();
+  }
+}
+
+int contarDadosStock(int dados[], int sizeMax)
+{
   int cantidad = 0;
   for (int i = 0; i < sizeMax; i++)
   {
@@ -18,15 +38,16 @@ int contarDadosStock(int dados[], int sizeMax) {
   return cantidad;
 }
 
-void mostrarDados(const int dados[], int cantidad) {
+void mostrarDados(const int dados[], int cantidad)
+{
   for (int i = 0; i < cantidad; i++)
   {
-    cout << "[" << i << "]:" << dados[i] << " ";
+    cout << "[Dado " << i << "]:" << dados[i] << endl;
   }
-  cout << endl;
 }
 
-bool yaSeleccionado(int indices[], int usados, int index) {
+bool yaSeleccionado(int indices[], int usados, int index)
+{
   for (int i = 0; i < usados; i++)
   {
     if (indices[i] == index)
@@ -37,7 +58,8 @@ bool yaSeleccionado(int indices[], int usados, int index) {
 
 void seleccionarDados(const int dados[], int cantidadStockJugador,
                       int indicesSeleccionados[], int &cantidadATomar,
-                      int &suma) {
+                      int &suma)
+{
   do
   {
     cout << "¿Cuántos dados quieres seleccionar? ";
@@ -74,7 +96,8 @@ void seleccionarDados(const int dados[], int cantidadStockJugador,
 void agregarDadosSeleccionados(int dadosStockJugador[],
                                int indicesSeleccionados[], int cantidadATomar,
                                int dadosElegidosJugador[],
-                               int &cantidadElegidosJugador) {
+                               int &cantidadElegidosJugador)
+{
   for (int i = 0; i < cantidadATomar; i++)
   {
     int idx = indicesSeleccionados[i];
@@ -84,7 +107,8 @@ void agregarDadosSeleccionados(int dadosStockJugador[],
 
 void eliminarDadosSeleccionados(int dadosStockJugador[], int &cantidadStock,
                                 int indicesSeleccionados[],
-                                int cantidadATomar) {
+                                int cantidadATomar)
+{
   int stock[MAX_DADOS];
   int j = 0;
   for (int i = 0; i < cantidadStock; i++)
@@ -114,7 +138,8 @@ void procesarResultado(int suma, int numeroObjetivo, int cantidadATomar,
                        int dadosJugador[], int &cantidadStockJugador,
                        int dadosElegidosJugador[], int &cantidadElegidos,
                        int dadosOponente[], int &cantidadStockOponente,
-                       int &puntosJugador, int &puntosOponente) {
+                       int &puntosJugador, int &puntosOponente)
+{
   if (suma == numeroObjetivo)
   {
     int puntaje = cantidadATomar * numeroObjetivo;
@@ -155,8 +180,10 @@ void procesarResultado(int suma, int numeroObjetivo, int cantidadATomar,
 void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                 int dadosOponente[], int &cantidadStockOponente,
                 int dadosElegidos[], int &cantidadElegidos, int &puntosJugador,
-                int &puntosOponente, int numeroObjetivo) {
-  cout << "Tus dados stock son: ";
+                int &puntosOponente, int numeroObjetivo)
+{
+
+  cout << "Tus dados stock son: " << endl;
   mostrarDados(dadosJugador, cantidadStockJugador);
 
   int cantidadATomar = 0;
@@ -172,10 +199,10 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
   {
     agregarDadosSeleccionados(dadosJugador, indicesSeleccionados,
                               cantidadATomar, dadosElegidos, cantidadElegidos);
-    int dummyStock = cantidadStockJugador;
-    eliminarDadosSeleccionados(dadosJugador, dummyStock, indicesSeleccionados,
+    int cantidadDeDadosUsados = cantidadStockJugador;
+    eliminarDadosSeleccionados(dadosJugador, cantidadDeDadosUsados, indicesSeleccionados,
                                cantidadATomar);
-    cantidadStockJugador = dummyStock;
+    cantidadStockJugador = cantidadDeDadosUsados;
   }
 
   procesarResultado(suma, numeroObjetivo, cantidadATomar, dadosJugador,
@@ -184,55 +211,150 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                     puntosOponente);
 }
 
+int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1[], int dadosStockJugador2[], int numeroObjetivo, int puntosAcumulados[2], int cantDadosJugador1, int cantDadosJugador2)
+{
+  // Arrancamos la ronda actual en 1 si es que viene cero o menos
+  if (rondaActual < 1)
+  {
+    rondaActual = 1;
+  }
 
-void nombreJugadores(string jugadores[2]){
-    cout << "Ingrese nombre de jugador 1: ";
-    cin >> jugadores[0];
-    cout << "Ingrese nombre de jugador 2: ";
-    cin >> jugadores[1];
-    system("cls");
+  // El jugador que comienza es el jugadorActual que recibimos, que debería venir de turnoJugador[0]
+  cout << "Ronda actual: " << rondaActual << endl;
+  cout << "Turno del jugador: " << jugadorActual << endl;
+
+  return rondaActual;
 }
 
+void registrarJugadores(string jugadores[])
+{
+  jugadores[1] = pedirNombre("-> ");
+  imprimirBanner();
 
-
-
-
-void ordenDePartida(string jugadores[], string turnoJugador[]) {
-    int dadoJugador1, dadoJugador2;
-
-    do {
-        dadoJugador1 = rand() % 6 + 1;
-        dadoJugador2 = rand() % 6 + 1;
-        cout << jugadores[0] << " tira dado: " << dadoJugador1 << endl;
-        cout << jugadores[1] << " tira dado: " << dadoJugador2 << endl;
-
-        if (dadoJugador1 > dadoJugador2) {
-            turnoJugador[0] = jugadores[0];
-            turnoJugador[1] = jugadores[1];
-            cout << turnoJugador[0] << " comienza la partida." << endl;
-        } else if (dadoJugador2 > dadoJugador1) {
-            turnoJugador[0] = jugadores[1];
-            turnoJugador[1] = jugadores[0];
-            cout << turnoJugador[0] << " comienza la partida." << endl;
-        } else {
-            cout << "Empate, vuelvan a tirar." << endl;
-        }
-    } while (dadoJugador1 == dadoJugador2);
-
-
+  bannerJugadoresRegistrados(jugadores[0], jugadores[1]);
+  system("pause");
 }
 
-int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1[], int dadosStockJugador2[], int numeroObjetivo, int puntosAcumulados[2],int cantDadosJugador1,int cantDadosJugador2) {
-    // Arrancamos la ronda actual en 1 si es que viene cero o menos
-    if (rondaActual < 1) {
-        rondaActual = 1;
+void tirarYMostrarDado(const string &jugador, int &resultado)
+{
+  cout << jugador << " tire dado." << endl
+       << endl;
+  system("pause");
+  imprimirBanner();
+  resultado = tirarDados6Caras();
+  cout << "Su numero es: " << resultado << endl
+       << endl;
+  system("pause");
+}
+
+string ordenDePartida(const string jugadores[], string &turno)
+{
+  int resultadoUno = 0, resultadoDos = 0;
+
+  bannerSorteo();
+
+  do
+  {
+    tirarYMostrarDado(jugadores[0], resultadoUno);
+    imprimirBanner();
+    tirarYMostrarDado(jugadores[1], resultadoDos);
+  } while (resultadoUno == resultadoDos);
+
+  imprimirBanner();
+  if (resultadoUno > resultadoDos)
+  {
+    turno = jugadores[0];
+  }
+  else
+  {
+    turno = jugadores[1];
+  }
+
+  cout << "El primero en jugar es: " << turno << endl
+       << endl;
+  system("pause");
+
+  return turno;
+}
+
+int obtenerNumeroObjetivo()
+{
+  imprimirBanner();
+  cout << "Tire los dados de doce caras para saber su numero objetivo" << endl
+       << endl;
+  system("pause");
+  imprimirBanner();
+
+  int primerDado = tirarDados12Caras();
+  int segundoDado = tirarDados12Caras();
+  int objetivo = primerDado + segundoDado;
+
+  cout << endl
+       << primerDado << "    " << segundoDado << endl
+       << endl;
+  cout << "El numero objetivo es: " << objetivo << endl
+       << endl;
+  system("pause");
+
+  return objetivo;
+}
+
+void comienzoDelJuego(string jugadores[], int puntos[])
+{
+  int numeroObjetivo[2];
+  int dadosJugador1[MAX_DADOS] = {};
+  int dadosJugador2[MAX_DADOS] = {};
+  int dadosElegidos1[MAX_DADOS];
+  int dadosElegidos2[MAX_DADOS];
+  int cantidadElegidos1 = 0;
+  int cantidadElegidos2 = 0;
+  string turno;
+
+  imprimirBanner();
+  mostrarSeccion("Enfrendados de a Dos", "Has seleccionado jugar con 2 jugadores.\n");
+  registrarJugadores(jugadores);
+  ordenDePartida(jugadores, turno);
+
+  for (int ronda = 1; ronda <= RONDAS; ronda++)
+  {
+    cout << "\n--- Ronda " << ronda << " ---" << endl;
+
+    obtenerDadosStock(dadosJugador1);
+    obtenerDadosStock(dadosJugador2);
+    int cantidadStock1 = contarDadosStock(dadosJugador1, MAX_DADOS);
+    int cantidadStock2 = contarDadosStock(dadosJugador2, MAX_DADOS);
+
+    if (turno == jugadores[0])
+    {
+      // Turno del jugador 0
+      cout << "\nTurno de " << jugadores[0] << " - Objetivo: " << numeroObjetivo[0] << endl;
+      numeroObjetivo[0] = obtenerNumeroObjetivo();
+      jugarRonda(dadosJugador1, cantidadStock1, dadosJugador2, cantidadStock2,
+                 dadosElegidos1, cantidadElegidos1, puntos[0], puntos[1],
+                 numeroObjetivo[0]);
+
+      // Turno del jugador 1
+      cout << "\nTurno de " << jugadores[1] << " - Objetivo: " << numeroObjetivo[1] << endl;
+      numeroObjetivo[1] = obtenerNumeroObjetivo();
+      jugarRonda(dadosJugador2, cantidadStock2, dadosJugador1, cantidadStock1,
+                 dadosElegidos2, cantidadElegidos2, puntos[1], puntos[0],
+                 numeroObjetivo[1]);
     }
+    else
+    {
+      // Turno del jugador 1
+      cout << "\nTurno de " << jugadores[1] << " - Objetivo: " << numeroObjetivo[1] << endl;
+      numeroObjetivo[1] = obtenerNumeroObjetivo();
+      jugarRonda(dadosJugador2, cantidadStock2, dadosJugador1, cantidadStock1,
+                 dadosElegidos2, cantidadElegidos2, puntos[1], puntos[0],
+                 numeroObjetivo[1]);
 
-    // El jugador que comienza es el jugadorActual que recibimos, que debería venir de turnoJugador[0]
-    cout << "Ronda actual: " << rondaActual << endl;
-    cout << "Turno del jugador: " << jugadorActual << endl;
-
-
-
-    return rondaActual;
+      // Turno del jugador 0
+      cout << "\nTurno de " << jugadores[0] << " - Objetivo: " << numeroObjetivo[0] << endl;
+      numeroObjetivo[0] = obtenerNumeroObjetivo();
+      jugarRonda(dadosJugador1, cantidadStock1, dadosJugador2, cantidadStock2,
+                 dadosElegidos1, cantidadElegidos1, puntos[0], puntos[1],
+                 numeroObjetivo[0]);
+    }
+  }
 }
