@@ -4,10 +4,6 @@
 #include <string>
 using namespace std;
 
-// Constantes generales
-const int MAX_DADOS = 11;
-const int RONDAS = 3;
-
 int tirarDados6Caras()
 {
 
@@ -42,7 +38,7 @@ void mostrarDados(const int dados[], int cantidad)
 {
   for (int i = 0; i < cantidad; i++)
   {
-    cout << "[Dado " << i << "]:" << dados[i] << endl;
+    cout << "[Dado " << i +1 << "]:" << dados[i] << endl;
   }
 }
 
@@ -109,7 +105,7 @@ void eliminarDadosSeleccionados(int dadosStockJugador[], int &cantidadStock,
                                 int indicesSeleccionados[],
                                 int cantidadATomar)
 {
-  int stock[MAX_DADOS];
+  int stock[11];
   int j = 0;
   for (int i = 0; i < cantidadStock; i++)
   {
@@ -185,9 +181,9 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
 
   cout << "Tus dados stock son: " << endl;
   mostrarDados(dadosJugador, cantidadStockJugador);
-
+  
+  int indicesSeleccionados[11] = {};
   int cantidadATomar = 0;
-  int indicesSeleccionados[MAX_DADOS] = {};
   int suma = 0;
 
   seleccionarDados(dadosJugador, cantidadStockJugador, indicesSeleccionados,
@@ -227,9 +223,8 @@ int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1
 }
 
 void registrarJugadores(string jugadores[])
-{
-  jugadores[1] = pedirNombre("-> ");
-  imprimirBanner();
+{ cin.ignore();///para que no quede resto del cin anterior
+  jugadores[1] = pedirNombre("->");
 
   bannerJugadoresRegistrados(jugadores[0], jugadores[1]);
   system("pause");
@@ -301,28 +296,29 @@ int obtenerNumeroObjetivo()
 
 void comienzoDelJuego(string jugadores[], int puntos[])
 {
+  const int maxDados = 11;
   int numeroObjetivo[2];
-  int dadosJugador1[MAX_DADOS] = {};
-  int dadosJugador2[MAX_DADOS] = {};
-  int dadosElegidos1[MAX_DADOS];
-  int dadosElegidos2[MAX_DADOS];
+  int dadosJugador1[maxDados] = {};
+  int dadosJugador2[maxDados] = {};
+  int dadosElegidos1[maxDados];
+  int dadosElegidos2[maxDados];
   int cantidadElegidos1 = 0;
   int cantidadElegidos2 = 0;
   string turno;
 
   imprimirBanner();
   mostrarSeccion("Enfrendados de a Dos", "Has seleccionado jugar con 2 jugadores.\n");
-  registrarJugadores(jugadores);
+  registrarJugadores(jugadores);                                                        ///////////
   ordenDePartida(jugadores, turno);
 
-  for (int ronda = 1; ronda <= RONDAS; ronda++)
+  for (int ronda = 1; ronda <= 3; ronda++)
   {
     cout << "\n--- Ronda " << ronda << " ---" << endl;
 
     obtenerDadosStock(dadosJugador1);
     obtenerDadosStock(dadosJugador2);
-    int cantidadStock1 = contarDadosStock(dadosJugador1, MAX_DADOS);
-    int cantidadStock2 = contarDadosStock(dadosJugador2, MAX_DADOS);
+    int cantidadStock1 = contarDadosStock(dadosJugador1, maxDados);
+    int cantidadStock2 = contarDadosStock(dadosJugador2, maxDados);
 
     if (turno == jugadores[0])
     {

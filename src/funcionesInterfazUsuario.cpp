@@ -23,7 +23,7 @@ string pedirNombre(string mensaje)
 void mostrarBienvenida()
 {
   cout << "+=====================================+" << endl;
-  cout << "|         BIENVENIDOS A ENFRENDADOS    |" << endl;
+  cout << "|         BIENVENIDOS A ENFRENDADOS   |" << endl;
   cout << "|           EL JUEGO DE DADOS         |" << endl;
   cout << "+=====================================+" << endl;
   cout << "|  Por favor, ingresa tu nombre para  |" << endl;
@@ -44,13 +44,14 @@ void imprimirBannerBienvenida(string jugador)
 
 void imprimirBanner()
 {
-  cout << "\n";
-  cout << " _____ _   _ _____ ____  _____ _   _ ____   _    ____   ___  ____  \n";
-  cout << "| ____| \\ | |  ___|  _ \\| ____| \\ | |  _ \\ / \\  |  _ \\ / _ \\/ ___| \n";
-  cout << "|  _| |  \\| | |_  | |_) |  _| |  \\| | | | / _ \\ | | | | | | \\___ \\ \n";
-  cout << "| |___| |\\  |  _| |  _ <| |___| |\\  | |_| / ___ \\| |_| | |_| |___) |\n";
-  cout << "|_____|_| \\_|_|   |_| \\_\\_____|_| \\_|____/_/   \\_\\____/ \\___/|____/ \n";
-  cout << "\n";
+    rlutil::cls();
+    cout << "\n";
+    cout << " _____ _   _ _____ ____  _____ _   _ ____     _    ____   ___  ____  \n";
+    cout << "| ____| \\ | |  ___|  _ \\| ____| \\ | |  _ \\   / \\  |  _ \\ / _ \\/ ___| \n";
+    cout << "|  _| |  \\| | |_  | |_) |  _| |  \\| | | ||  / _ \\ | | | | | | \\___ \\ \n";
+    cout << "| |___| |\\  |  _| |  _ <| |___| |\\  | |_|| / ___ \\| |_| | |_| |___) |\n";
+    cout << "|_____|_| \\_|_|   |_| \\_\\_____|_| \\_|____//_/   \\_\\____/ \\___/|____/ \n";
+    cout << "\n";
 }
 
 bool mostrarMenu(string jugadores[])
@@ -114,10 +115,6 @@ bool confirmarSalida()
   char letra = pedirLetra("Quieres salir del programa?");
   if (letra == 'S' || letra == 's')
   {
-    // Segunda confirmacion
-    char confirmacion = pedirLetra("Estas seguro?");
-    if (confirmacion == 'S' || confirmacion == 's')
-    {
       cout << "+---------------------------------------+" << endl;
       cout << "|     Saliendo de Enfrendados...        |" << endl;
       cout << "+---------------------------------------+" << endl;
@@ -132,8 +129,7 @@ bool confirmarSalida()
       system("pause");
       return false; // Cancela en la segunda confirmacion
     }
-  }
-  else if (letra == 'N' || letra == 'n')
+  if (letra == 'N' || letra == 'n')
   {
     cout << "+---------------------------------------+" << endl;
     cout << "|No te preocupes seguimos en Enfrendados|" << endl;
@@ -157,8 +153,7 @@ void mostrarSeccion(string titulo, string mensaje)
   cout << "|------ " << titulo << " -------->" << endl;
   cout << "+=====================================+" << endl;
   cout << mensaje << endl;
-  system(
-      "pause"); // Pausa para que el usuario lea la seccion antes de continuar
+// Pausa para que el usuario lea la seccion antes de continuar
 }
 
 void bannerJugadorDos()
@@ -182,13 +177,13 @@ void bannerJugadoresRegistrados(string jugador1, string jugador2)
 
 void bannerSorteo()
 {
-  cout << endl
-       << "Sorteo" << endl;
-  cout << "+=====================================+" << endl
-       << endl;
+    cout << endl;
+    cout << "+=====================================+" << endl;
+    cout << "|               SORTEO                |" << endl;
+    cout << "+=====================================+" << endl;
 }
 
-void mostrarEstadisticas(const string jugadores[], const int puntos[], 
+void mostrarEstadisticas(const string jugadores[], const int puntos[],
   string &historialjugGanador, int &historialPuntPerdedor) {
 cout << "+=====================================+" << endl;
 cout << "|           ESTADISTICAS              |" << endl;
@@ -218,10 +213,10 @@ void mostrarCreditos()
   cout << "+-------------------------------------+" << endl;
   cout << "|           INTEGRANTES:              |" << endl;
   cout << "+-------------------------------------+" << endl;
-  cout << "--> Fernandez, Augusto Martin - Legajo: -    " << endl;
-  cout << "--> Canela, Gabriela Maribel - Legajo: -    " << endl;
-  cout << "--> Gimenez, Lautaro Nehuen - Legajo: -    " << endl;
-  cout << "--> Lavini, Ignacio German - Legajo: -    " << endl;
+  cout << "--> Fernandez, Augusto Martin - Legajo: 32592-    " << endl;
+  cout << "--> Canela, Gabriela Maribel - Legajo: 33157-    " << endl;
+  cout << "--> Gimenez, Lautaro Nehuen - Legajo: 32432-    " << endl;
+  cout << "--> Lavini, Ignacio German - Legajo: 31988-    " << endl;
   cout << "+-------------------------------------+" << endl;
   cout << "|    DISTRIBUCION DEL TRABAJO:        |" << endl;
   cout << "+-------------------------------------+" << endl;
