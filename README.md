@@ -37,9 +37,9 @@ Desarrollado por el equipo **'12'**:
 | Integrante                | Legajo | Responsabilidad          |
 |---------------------------|--------|-------------------------|
 | Fernandez, Augusto Martin | 12345  | Menú y Créditos         |
-| Apellido, Nombre          | 12346  | Lógica del Juego        |
-| Apellido, Nombre          | 12347  | Funciones de Dados      |
-| Apellido, Nombre          | 12348  | Validaciones            |
+| Canela, Gabriela Maribel  | 12346  | Lógica del Juego        |
+| Gimenez, Lautaro Nehuen   | 12347  | Funciones de Dados      |
+| Lavini, Ignacio German    | 12348  | Validaciones            |
 
 ## Cómo ejecutar
 
