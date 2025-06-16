@@ -1,0 +1,44 @@
+# depslib dependency file v1.0
+1749054833 source:d:\descargas\enfrendados\enfrendados\funcioneslogicajuego.cpp
+	"funcionesLogicaJuego.h"
+	<iostream>
+	<string>
+
+1749055456 d:\descargas\enfrendados\enfrendados\funcioneslogicajuego.h
+	<iostream>
+	<string>
+
+1584205420 source:d:\descargas\enfrendados\enfrendados\enfrendados\main.cpp
+	<iostream>
+
+1749061012 source:d:\descargas\enfrendados\enfrendados\main.cpp
+	<iostream>
+	<ctime>
+	<string>
+	"rlutil.h"
+	"funciones.h"
+	"funcionesLogicaJuego.h"
+
+1748960517 d:\descargas\enfrendados\enfrendados\rlutil.h
+	<iostream>
+	<string>
+	<cstdio>
+	<stdio.h>
+	<string.h>
+	<windows.h>
+	<conio.h>
+	<termios.h>
+	<unistd.h>
+	<sys/ioctl.h>
+	<sys/types.h>
+	<sys/time.h>
+
+1749059775 d:\descargas\enfrendados\enfrendados\funciones.h
+	<iostream>
+	<string>
+
+1749075768 source:d:\descargas\enfrendados\enfrendados\funciones.cpp
+	"funciones.h"
+	<iostream>
+	<string>
+
