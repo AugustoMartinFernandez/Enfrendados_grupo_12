@@ -1,0 +1,22 @@
+# Ejecutables y binarios
+*.exe
+*.o
+*.out
+enfrendados
+
+# Carpetas de compilacion
+bin/
+obj/
+
+# Archivos de Code::Blocks (proyecto/estado local)
+*.depend
+*.layout
+
+# Sistema
+.vscode/
+Thumbs.db
+.DS_Store
+
+# Claude Code
+.claude/
+.mcp.json
