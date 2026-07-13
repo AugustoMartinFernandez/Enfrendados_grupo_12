@@ -1,0 +1,27 @@
+# Ejecutables y binarios
+*.exe
+*.o
+*.out
+enfrendados
+enfrentados
+
+# Carpetas de compilacion
+bin/
+obj/
+
+# Archivos de Code::Blocks
+*.depend
+*.layout
+*.cbp
+
+# Editores
+.vscode/
+*.swp
+
+# Claude Code (config local, no se versiona)
+.claude/
+.mcp.json
+
+# Sistema
+Thumbs.db
+.DS_Store

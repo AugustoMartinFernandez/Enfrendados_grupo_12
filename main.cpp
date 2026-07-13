@@ -12,6 +12,8 @@ int main()
     //------VARIABLES---------
     string jugadores[2];
     bool salir = false;
+    // El estado vive aca, en main, para que dure toda la sesion
+    int puntos[2] = {0, 0};
 
     mostrarBienvenida();
     jugadores[0] = pedirNombre("-> ");
@@ -19,7 +21,7 @@ int main()
     imprimirBanner();
 
     do {
-      salir = mostrarMenu(jugadores);
+      salir = mostrarMenu(jugadores, puntos);
     } while (!salir);
 
     return 0;

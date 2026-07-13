@@ -58,11 +58,11 @@ void seleccionarDados(const int dados[], int cantidadStockJugador,
 {
   do
   {
-    cout << "¿Cuántos dados quieres seleccionar? ";
+    cout << "Cuantos dados quieres seleccionar? ";
     cin >> cantidadATomar;
     if (cantidadATomar > cantidadStockJugador)
     {
-      cout << "No puedes seleccionar más dados de los que tienes. Intenta "
+      cout << "No puedes seleccionar mas dados de los que tienes. Intenta "
               "nuevamente."
            << endl;
     }
@@ -71,9 +71,10 @@ void seleccionarDados(const int dados[], int cantidadStockJugador,
   suma = 0;
   for (int i = 0; i < cantidadATomar; i++)
   {
-    int index;
-    cout << "Selecciona el índice del dado #" << i + 1 << ": ";
-    cin >> index;
+    int numero;
+    cout << "Elige el numero del dado #" << i + 1 << ": ";
+    cin >> numero;
+    int index = numero - 1; // el usuario ve 1..N, internamente usamos 0..N-1
 
     if (index >= 0 && index < cantidadStockJugador &&
         !yaSeleccionado(indicesSeleccionados, i, index))
@@ -83,7 +84,7 @@ void seleccionarDados(const int dados[], int cantidadStockJugador,
     }
     else
     {
-      cout << "Índice inválido o ya seleccionado. Intenta de nuevo." << endl;
+      cout << "Indice invalido o ya seleccionado. Intenta de nuevo." << endl;
       i--;
     }
   }
@@ -140,7 +141,7 @@ void procesarResultado(int suma, int numeroObjetivo, int cantidadATomar,
   {
     int puntaje = cantidadATomar * numeroObjetivo;
     puntosJugador += puntaje;
-    cout << "¡Suma correcta! Has ganado " << puntaje
+    cout << "Suma correcta! Has ganado " << puntaje
          << " puntos. Puntaje total: " << puntosJugador << endl;
 
     for (int i = 0; i < cantidadElegidos; i++)
@@ -151,7 +152,7 @@ void procesarResultado(int suma, int numeroObjetivo, int cantidadATomar,
 
     if (cantidadStockJugador == 0)
     {
-      cout << "¡Te quedaste sin dados! Has ganado la ronda y 10.000 puntos "
+      cout << "Te quedaste sin dados! Has ganado la ronda y 10.000 puntos "
               "extra."
            << endl;
       puntosJugador += 10000;
@@ -181,7 +182,7 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
 
   cout << "Tus dados stock son: " << endl;
   mostrarDados(dadosJugador, cantidadStockJugador);
-  
+
   int indicesSeleccionados[11] = {};
   int cantidadATomar = 0;
   int suma = 0;
@@ -207,39 +208,24 @@ void jugarRonda(int dadosJugador[], int &cantidadStockJugador,
                     puntosOponente);
 }
 
-int estadoDelJuego(int rondaActual, string jugadorActual, int dadosStockJugador1[], int dadosStockJugador2[], int numeroObjetivo, int puntosAcumulados[2], int cantDadosJugador1, int cantDadosJugador2)
-{
-  // Arrancamos la ronda actual en 1 si es que viene cero o menos
-  if (rondaActual < 1)
-  {
-    rondaActual = 1;
-  }
-
-  // El jugador que comienza es el jugadorActual que recibimos, que debería venir de turnoJugador[0]
-  cout << "Ronda actual: " << rondaActual << endl;
-  cout << "Turno del jugador: " << jugadorActual << endl;
-
-  return rondaActual;
-}
-
 void registrarJugadores(string jugadores[])
 { cin.ignore();///para que no quede resto del cin anterior
   jugadores[1] = pedirNombre("->");
 
   bannerJugadoresRegistrados(jugadores[0], jugadores[1]);
-  system("pause");
+  pausar();
 }
 
 void tirarYMostrarDado(const string &jugador, int &resultado)
 {
   cout << jugador << " tire dado." << endl
        << endl;
-  system("pause");
+  pausar();
   imprimirBanner();
   resultado = tirarDados6Caras();
   cout << "Su numero es: " << resultado << endl
        << endl;
-  system("pause");
+  pausar();
 }
 
 string ordenDePartida(const string jugadores[], string &turno)
@@ -267,7 +253,7 @@ string ordenDePartida(const string jugadores[], string &turno)
 
   cout << "El primero en jugar es: " << turno << endl
        << endl;
-  system("pause");
+  pausar();
 
   return turno;
 }
@@ -277,7 +263,7 @@ int obtenerNumeroObjetivo()
   imprimirBanner();
   cout << "Tire los dados de doce caras para saber su numero objetivo" << endl
        << endl;
-  system("pause");
+  pausar();
   imprimirBanner();
 
   int primerDado = tirarDados12Caras();
@@ -289,7 +275,7 @@ int obtenerNumeroObjetivo()
        << endl;
   cout << "El numero objetivo es: " << objetivo << endl
        << endl;
-  system("pause");
+  pausar();
 
   return objetivo;
 }
@@ -297,7 +283,7 @@ int obtenerNumeroObjetivo()
 void comienzoDelJuego(string jugadores[], int puntos[])
 {
   const int maxDados = 11;
-  int numeroObjetivo[2];
+  int numeroObjetivo[2] = {0, 0};
   int dadosJugador1[maxDados] = {};
   int dadosJugador2[maxDados] = {};
   int dadosElegidos1[maxDados];
@@ -305,6 +291,10 @@ void comienzoDelJuego(string jugadores[], int puntos[])
   int cantidadElegidos1 = 0;
   int cantidadElegidos2 = 0;
   string turno;
+
+  // Cada partida arranca desde cero
+  puntos[0] = 0;
+  puntos[1] = 0;
 
   imprimirBanner();
   mostrarSeccion("Enfrendados de a Dos", "Has seleccionado jugar con 2 jugadores.\n");
@@ -323,15 +313,15 @@ void comienzoDelJuego(string jugadores[], int puntos[])
     if (turno == jugadores[0])
     {
       // Turno del jugador 0
-      cout << "\nTurno de " << jugadores[0] << " - Objetivo: " << numeroObjetivo[0] << endl;
       numeroObjetivo[0] = obtenerNumeroObjetivo();
+      cout << "\nTurno de " << jugadores[0] << endl;
       jugarRonda(dadosJugador1, cantidadStock1, dadosJugador2, cantidadStock2,
                  dadosElegidos1, cantidadElegidos1, puntos[0], puntos[1],
                  numeroObjetivo[0]);
 
       // Turno del jugador 1
-      cout << "\nTurno de " << jugadores[1] << " - Objetivo: " << numeroObjetivo[1] << endl;
       numeroObjetivo[1] = obtenerNumeroObjetivo();
+      cout << "\nTurno de " << jugadores[1] << endl;
       jugarRonda(dadosJugador2, cantidadStock2, dadosJugador1, cantidadStock1,
                  dadosElegidos2, cantidadElegidos2, puntos[1], puntos[0],
                  numeroObjetivo[1]);
@@ -339,18 +329,35 @@ void comienzoDelJuego(string jugadores[], int puntos[])
     else
     {
       // Turno del jugador 1
-      cout << "\nTurno de " << jugadores[1] << " - Objetivo: " << numeroObjetivo[1] << endl;
       numeroObjetivo[1] = obtenerNumeroObjetivo();
+      cout << "\nTurno de " << jugadores[1] << endl;
       jugarRonda(dadosJugador2, cantidadStock2, dadosJugador1, cantidadStock1,
                  dadosElegidos2, cantidadElegidos2, puntos[1], puntos[0],
                  numeroObjetivo[1]);
 
       // Turno del jugador 0
-      cout << "\nTurno de " << jugadores[0] << " - Objetivo: " << numeroObjetivo[0] << endl;
       numeroObjetivo[0] = obtenerNumeroObjetivo();
+      cout << "\nTurno de " << jugadores[0] << endl;
       jugarRonda(dadosJugador1, cantidadStock1, dadosJugador2, cantidadStock2,
                  dadosElegidos1, cantidadElegidos1, puntos[0], puntos[1],
                  numeroObjetivo[0]);
     }
   }
+
+  // Resultado final de la partida
+  cout << "\n+=====================================+" << endl;
+  cout << "|         RESULTADO FINAL             |" << endl;
+  cout << "+=====================================+" << endl;
+  cout << jugadores[0] << ": " << puntos[0] << " puntos" << endl;
+  cout << jugadores[1] << ": " << puntos[1] << " puntos" << endl;
+  cout << "-------------------------------------" << endl;
+
+  if (puntos[0] > puntos[1])
+    cout << "Gano " << jugadores[0] << "!" << endl;
+  else if (puntos[1] > puntos[0])
+    cout << "Gano " << jugadores[1] << "!" << endl;
+  else
+    cout << "Empate!" << endl;
+
+  pausar();
 }

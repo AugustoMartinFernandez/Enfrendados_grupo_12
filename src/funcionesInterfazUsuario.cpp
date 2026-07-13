@@ -5,6 +5,15 @@
 #include "../rlutil.h"
 using namespace std;
 
+// Pausa portable: reemplaza a system("pause"), que es solo de Windows.
+void pausar()
+{
+  cout << "\nPresione ENTER para continuar...";
+  if (cin.rdbuf()->in_avail() > 0) // solo si quedo algo en el buffer, lo descartamos
+    cin.ignore(10000, '\n');
+  cin.get(); // un unico ENTER, siempre
+}
+
 string pedirNombre(string mensaje)
 {
   string nombre;
@@ -38,7 +47,7 @@ void imprimirBannerBienvenida(string jugador)
   cout << "+---------------------------------------------------------------------------------------+" << endl;
   cout << "| Bienvenido, " << jugador << " Preparate para tirar los dados y demostrar tu suerte.  |" << endl;
   cout << "+---------------------------------------------------------------------------------------+" << endl;
-  system("pause"); // Pausa despues de mostrar bienvenida
+  pausar(); // Pausa despues de mostrar bienvenida
   rlutil::cls();
 }
 
@@ -54,13 +63,9 @@ void imprimirBanner()
     cout << "\n";
 }
 
-bool mostrarMenu(string jugadores[])
+bool mostrarMenu(string jugadores[], int puntos[])
 {
   int opcionMenu;
-  int puntos[2] = {0, 0};
-  string historialjugGanador;
-  int historialPuntPerdedor = 0;
-
 
   cout << endl;
   cout << "+=====================================+" << endl;
@@ -74,6 +79,16 @@ bool mostrarMenu(string jugadores[])
   cout << "+=====================================+" << endl;
   cout << "Seleccione una opcion con numeros: ";
   cin >> opcionMenu;
+
+  // Si el usuario escribio algo que no es un numero, limpiamos el error
+  // para no entrar en un bucle infinito y forzamos una opcion invalida.
+  if (cin.fail())
+  {
+    cin.clear();             // saca el estado de error del cin
+    cin.ignore(10000, '\n'); // descarta lo que quedo en el buffer de entrada
+    opcionMenu = -1;         // valor invalido -> cae en el "default" del switch
+  }
+
   cout << "---------------------------------------" << endl;
 
   switch (opcionMenu)
@@ -82,7 +97,7 @@ bool mostrarMenu(string jugadores[])
     comienzoDelJuego(jugadores, puntos);
     break;
   case 2:
-    mostrarEstadisticas(jugadores, puntos, historialjugGanador, historialPuntPerdedor);
+    mostrarEstadisticas(jugadores, puntos);
     break;
   case 3:
     mostrarCreditos();
@@ -93,7 +108,7 @@ bool mostrarMenu(string jugadores[])
 
   default:
     cout << "Opcion invalida. Intenta de nuevo." << endl;
-    system("pause");
+    pausar();
   }
 
   return false; // ← seguir en el menú
@@ -113,38 +128,33 @@ char pedirLetra(string mensaje)
 bool confirmarSalida()
 {
   char letra = pedirLetra("Quieres salir del programa?");
-  if (letra == 'S' || letra == 's')
-  {
-      cout << "+---------------------------------------+" << endl;
-      cout << "|     Saliendo de Enfrendados...        |" << endl;
-      cout << "+---------------------------------------+" << endl;
-      system("pause");
-      return true; // Confirma dos veces que quiere salir
-    }
-    else
-    {
-      cout << "+---------------------------------------+" << endl;
-      cout << "|  Salida cancelada. Continuamos...     |" << endl;
-      cout << "+---------------------------------------+" << endl;
-      system("pause");
-      return false; // Cancela en la segunda confirmacion
-    }
-  if (letra == 'N' || letra == 'n')
+
+  // Si no responde S, cancelamos directo (cualquier otra tecla = no salir)
+  if (letra != 'S' && letra != 's')
   {
     cout << "+---------------------------------------+" << endl;
-    cout << "|No te preocupes seguimos en Enfrendados|" << endl;
+    cout << "|  Salida cancelada. Continuamos...     |" << endl;
     cout << "+---------------------------------------+" << endl;
-    system("pause");
-    return false; // No quiere salir
+    pausar();
+    return false;
   }
-  else
+
+  // Segunda confirmacion
+  char seguro = pedirLetra("Estas seguro?");
+  if (seguro == 'S' || seguro == 's')
   {
     cout << "+---------------------------------------+" << endl;
-    cout << "|  Entrada invalida. Preciona 's' o 'n'.|" << endl;
+    cout << "|     Saliendo de Enfrendados...        |" << endl;
     cout << "+---------------------------------------+" << endl;
-    system("pause");
-    return false; // Entrada invalida, no sale
+    pausar();
+    return true;
   }
+
+  cout << "+---------------------------------------+" << endl;
+  cout << "|  Salida cancelada. Continuamos...     |" << endl;
+  cout << "+---------------------------------------+" << endl;
+  pausar();
+  return false;
 }
 
 void mostrarSeccion(string titulo, string mensaje)
@@ -183,24 +193,31 @@ void bannerSorteo()
     cout << "+=====================================+" << endl;
 }
 
-void mostrarEstadisticas(const string jugadores[], const int puntos[],
-  string &historialjugGanador, int &historialPuntPerdedor) {
-cout << "+=====================================+" << endl;
-cout << "|           ESTADISTICAS              |" << endl;
-cout << "+=====================================+" << endl;
+void mostrarEstadisticas(const string jugadores[], const int puntos[])
+{
+  cout << "+=====================================+" << endl;
+  cout << "|           ESTADISTICAS             |" << endl;
+  cout << "+=====================================+" << endl;
 
-if (historialjugGanador.empty()) {
-// Determinar el jugador con mayor puntaje
-int indiceGanador = (puntos[0] > puntos[1]) ? 0 : 1;
-historialjugGanador = jugadores[indiceGanador];
-historialPuntPerdedor = puntos[1 - indiceGanador]; // Puntaje del perdedor
-}
+  if (puntos[0] == 0 && puntos[1] == 0)
+  {
+    cout << "Todavia no se jugo ninguna partida." << endl;
+    pausar();
+    return;
+  }
 
-cout << "Jugador con mayor puntaje histórico: " << historialjugGanador << endl;
-cout << "Puntaje del jugador: " << historialPuntPerdedor << endl;
-cout << "+=====================================+" << endl;
+  cout << jugadores[0] << ": " << puntos[0] << " puntos" << endl;
+  cout << jugadores[1] << ": " << puntos[1] << " puntos" << endl;
+  cout << "-------------------------------------" << endl;
 
-system("pause");
+  if (puntos[0] > puntos[1])
+    cout << "Va ganando: " << jugadores[0] << endl;
+  else if (puntos[1] > puntos[0])
+    cout << "Va ganando: " << jugadores[1] << endl;
+  else
+    cout << "Van empatados." << endl;
+
+  pausar();
 }
 
 void mostrarCreditos()
@@ -229,5 +246,5 @@ void mostrarCreditos()
   cout << "|    ANIO: 2025 - Primer Cuatrimestre |" << endl;
   cout << "+-------------------------------------+" << endl;
   cout << endl;
-  system("pause");
+  pausar();
 }
